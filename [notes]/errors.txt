@@ -1,0 +1,8 @@
+[600] - B_CORE / CHARACTER CREATION
+
+610 - Could not load the users player data. b_core/sv/character.lua - b:getCharacterData [FailIf - User is null]
+611 - Could not load the users player data. b_core/sv/character.lua - b:createCharacter [FailIf - User is null]
+612 - Could not load the users player data. b_core/sv/character.lua - b:selectCharacter [FailIf - User is null]
+613 - Could not load the users player data. b_core/sv/character.lua - b:selectCharacter [FailIf - User is null]
+
+620 - Could not save the new character. b_core/sv/character.lua - b:createCharacter [FailIf - Exceeds max characters, name is null, dob is null, gender is null, model is null]

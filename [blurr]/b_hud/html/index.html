@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>B-Core HUD</title>
+  <link rel="stylesheet" href="statstyle.css">
+  <link rel="stylesheet" href="seatstyle.css">
+  <link rel="stylesheet" href="timestyle.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/dragula.min.js'></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <!--<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>-->
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="overlay", id="hud_overlay">
+  <div class="stats">
+    <div class="healthbar">
+      <div class="healthamount", id="health"></div>
+    </div>
+    <div class="staminabar">
+      <div class="staminaamount", id="stamina"></div>
+    </div>
+    <div class="oxygenbar">
+      <div class="oxygenamount", id="oxygen"></div>
+    </div>
+  </div>
+  <div class="time">
+    <h4 id="timeText"></h4>
+  </div>
+  <div class="seats">
+    
+  </div>
+</div> 
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/SoundJS/1.0.2/soundjs.min.js'></script><script  src="./script.js"></script>
+</body>
+</html>

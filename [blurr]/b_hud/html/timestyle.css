@@ -1,0 +1,12 @@
+.time {
+  position: absolute;
+  top: 15px;
+  right: 150px;
+}
+
+h4 {
+  position:relative;
+  margin-top: 0px;
+  color: rgba(0, 175, 200, 0.9);
+  font-family: 'Orbitron', sans-serif;
+}

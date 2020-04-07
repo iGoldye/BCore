@@ -1,0 +1,53 @@
+.overlay {
+  pointer-events: none;
+}
+
+.stats {
+	position: absolute;
+	bottom: 10px;
+  	left: 8px;
+	width: 700px;
+	height: 10px;
+}
+
+.healthbar {
+	position: relative;
+  	display: inline-block;
+	width:125px;
+	height:100%;
+	background-color: rgba(0, 50, 0, 0.9)
+}
+
+.healthamount {
+	height:100%;
+	width:100%;
+	background-color: rgba(0, 125, 0, 0.9)
+}
+
+.staminabar {
+	position: relative;
+  	display: inline-block;
+	width:125px;
+	height:100%;
+	background-color: rgba(0,25, 50, 0.9)
+}
+
+.staminaamount {
+	height:100%;
+	width:100%;
+	background-color: rgba(0, 100, 125, 0.9)
+}
+
+.oxygenbar {
+	position: relative;
+  	display: inline-block;
+	width:125px;
+	height:100%;
+	background-color: rgba(0, 125, 180, 0.9)
+}
+
+.oxygenamount {
+	height:100%;
+	width:100%;
+	background-color: rgba(0, 200, 255, 0.9)
+}

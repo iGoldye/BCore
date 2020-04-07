@@ -1,0 +1,97 @@
+.overlay {
+  position:absolute;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  width:1200px;
+  height:250px;
+  margin:auto;
+}
+
+.info_divider {
+  position:relative;
+  pointer-events: none;
+}
+
+.weapons_row {
+  position:relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:25px;
+}
+
+.weapon_slot {
+  position:relative;
+  display: inline-block;
+  background: rgba(0,0,0,0.2);
+  padding:1em 1em;
+  margin-left:15px;
+  margin-right:15px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 4px;
+  width: 265px;
+  height: 110px;
+}
+
+.weapon_divider {
+  width: 265px;
+  height: 95px;
+  pointer-events: none;
+}
+
+#MeleeImage, #HandgunImage, #PrimaryImage {
+  order: top;
+  max-width: 265px;
+  max-height:80px;
+  pointer-events: none;
+}
+
+.items_row {
+  position:relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:25px;
+}
+
+.item_slot {
+  position:relative;
+  display: inline-block;
+  background: rgba(0,0,0,0.1);
+  padding:1em 1em;
+  margin-left:10px;
+  margin-right:10px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 3px;
+  width: 125px;
+  height: 110px;
+}
+
+.item_divider {
+  width: 125px;
+  height: 95px;
+  pointer-events: none;
+}
+
+#DrinksImage, #FoodImage, #MedsImage, #UsablesImage, #HolsterImage {
+  order: top;
+  position:relative;
+  max-width: 125px;
+  max-height:80px;
+  pointer-events: none;
+}
+
+h3 {
+  color: rgba(255, 255, 255, 1.0);
+  position:relative;
+  display: inline-block;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  pointer-events: none;
+}
