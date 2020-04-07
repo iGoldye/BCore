@@ -188,7 +188,7 @@ spawnableCars = {
 	"Camper",
 	"GBurrito",
 	"GBurrito2",
-	"Journey,"
+	"Journey",
 	"Minivan",
 	"Minivan2",
 	"Paradise",
