@@ -84,6 +84,7 @@ AddEventHandler('playerDropped', function(reason)
 				["characters"] = user.GetCharacters(),
 			}
 			sUser["info"].newUser = false
+			sUser["info"].online = false
 			saveUser(discord, sUser)
 			print("[B-Core] User "..GetPlayerName(source).." has been saved. Disconnected: "..reason)
 		else
