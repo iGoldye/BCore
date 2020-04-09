@@ -1,7 +1,7 @@
-mainDir = "C:/Users/Administrator/Desktop/BData"
-usersDir = "C:/Users/Administrator/Desktop/BData/users"
-groupsDir = "C:/Users/Administrator/Desktop/BData/groups"
-bansDir = "C:/Users/Administrator/Desktop/BData/bans"
+mainDir = "C:/Program Files/BData"
+usersDir = "C:/Program Files/BData/users"
+groupsDir = "C:/Program Files/BData/groups"
+bansDir = "C:/Program Files/BData/bans"
 
 function stringJoin(strings, start)
     local joint = ""
