@@ -1,4 +1,6 @@
-$('.overlay').hide();
+$('.inv_overlay').hide();
+$('.trade_overlay').hide();
+$('.craft_overlay').hide();
 
 var selectedSlot = "nothing"
 var selectedItemName = "nothing"
@@ -95,7 +97,7 @@ function Setup() {
   selectedUsable = 0
 
   Update();
-  $('.overlay').show();
+  $('.inv_overlay').show();
 }
 
 function Update() {
@@ -171,7 +173,7 @@ function Update() {
 
 window.addEventListener("keydown", function(event){
   if (event.which == 9 || event.which == 27 || event.which == 71) {
-    $('.overlay').hide();
+    $('.inv_overlay').hide();
     $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: "Holster", itemId: 0 }));
   } else if (event.which == 70 && pressed == false) {
     if (selectedSlot != "nothing") {
@@ -377,7 +379,7 @@ window.addEventListener('click', function(e) {
     }
 
     if (selectedItemId >= 0){
-      $('.overlay').hide();
+      $('.inv_overlay').hide();
       $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
     }
 }, false);
