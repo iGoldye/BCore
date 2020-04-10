@@ -1,6 +1,7 @@
 $('.inv_overlay').hide();
 $('.trade_overlay').hide();
 $('.craft_overlay').hide();
+$('.vehicle_overlay').hide();
 
 var selectedSlot = "nothing"
 var selectedItemName = "nothing"
@@ -19,6 +20,7 @@ var selectedUsable = 0
 var fPressed = 0
 var pressed = false
 
+let inventory = []
 let drinks = []
 let food = []
 let usables = []
@@ -30,9 +32,9 @@ let primary = []
 //Setup()
 
 window.addEventListener('message', (event) => {
-  if (event.data.action == 'open') {
+  if (event.data.action == 'open_inventory') {
 
-      let items = event.data.items
+      inventory = event.data.items
       drinks = []
       food = []
       usables = []
@@ -41,15 +43,15 @@ window.addEventListener('message', (event) => {
       handgun = []
       primary = []
 
-      if (items != undefined) {
-        items.forEach(function(item) {
+      if (inventory != undefined) {
+        inventory.forEach(function(item) {
           if (item.use == 1) {
             // Drinks
             drinks.push(item)
       
           } else if (item.use == 2) {
             // Food
-            food.push(items)
+            food.push(item)
       
           } else if (item.use == 3 || item.use == 8) {
             // Usable

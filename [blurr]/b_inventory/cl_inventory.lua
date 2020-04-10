@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
 		DisableControlAction(1, 349, true)
 
 		if (IsDisabledControlJustPressed(1, 37) or IsDisabledControlJustPressed(1, 183)) then
-			if (inv_ui == false and trade_ui == false and craft_ui == false) then
+			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
 				TriggerServerEvent('inv:update')
   				SetCursorLocation(0.5,0.53)
   				inv_ui = true
@@ -55,7 +55,7 @@ end)
 RegisterNUICallback('onUseItem', function(data)
 	SetNuiFocus(false, false)
 	inv_ui = false
-	
+
 	if (data.itemUse == -1 or data.itemUse == 8) then
 		return
 	end
