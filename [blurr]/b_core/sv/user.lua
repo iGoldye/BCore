@@ -10,7 +10,7 @@ uses = {
 	[5] = "melee",
 	[6] = "handguns",
 	[7] = "primary",
-	[8] = "unusable",
+	[8] = "crafting",
 }
 
 items = {

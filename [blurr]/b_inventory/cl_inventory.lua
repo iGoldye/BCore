@@ -54,7 +54,7 @@ end)
 
 RegisterNUICallback('onUseItem', function(data)
 	SetNuiFocus(false, false)
-	if (data.itemUse == -1) then
+	if (data.itemUse == -1 or data.itemUse == 8) then
 		return
 	end
 

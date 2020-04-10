@@ -49,7 +49,7 @@ window.addEventListener('message', (event) => {
             // Food
             food.push(items)
       
-          } else if (item.use == 3) {
+          } else if (item.use == 3 || item.use == 8) {
             // Usable
             usables.push(item)
       
@@ -350,7 +350,7 @@ window.addEventListener('click', function(e) {
       selectedItemName = meds[selectedMed].n
       selectedItemCount = meds[selectedMed].count
     } else if (type == "usables") {
-      selectedItemUse = 3
+      selectedItemUse = usables[selectedUsable].use
       selectedItemId = usables[selectedUsable].id
       selectedItemName = usables[selectedUsable].n
       selectedItemCount = usables[selectedUsable].count
@@ -407,7 +407,7 @@ window.addEventListener("keyup", function(event){
         selectedItemName = meds[selectedMed].n
         selectedItemCount = meds[selectedMed].count
       } else if (selectedSlot == "usables") {
-        selectedItemUse = 3
+        selectedItemUse = usables[selectedUsable].use
         selectedItemId = usables[selectedUsable].id
         selectedItemName = usables[selectedUsable].n
         selectedItemCount = usables[selectedUsable].count
