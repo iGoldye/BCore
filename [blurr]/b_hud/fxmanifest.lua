@@ -6,6 +6,7 @@ client_scripts {
 	'hud.lua',
 	'playerstats.lua',
 	'time.lua',
+	'seats.lua',
 }
 
 files {

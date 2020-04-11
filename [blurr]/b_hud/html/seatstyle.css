@@ -1,0 +1,19 @@
+.seats {
+	position: absolute;
+	right:5px;
+	bottom:5px;
+	text-align: right;
+	margin: auto;
+	min-width: 12px;
+	height:12px;
+}
+
+.seat {
+  	display: inline-block;
+	margin-right: 5px;
+    width: 12px;
+    height: 12px;
+    background: -webkit-radial-gradient(center, 6px 6px, rgba(0,100,0,0.9), rgba(0,60,0,0.9));
+    border: none;
+    border-radius:50%;
+}
