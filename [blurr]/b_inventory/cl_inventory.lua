@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
 		if (IsDisabledControlJustPressed(1, 37) or IsDisabledControlJustPressed(1, 183)) then
 			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
 				TriggerServerEvent('inv:update')
-  				SetCursorLocation(0.5,0.53)
+  				SetCursorLocation(0.5,0.1)
   				inv_ui = true
   			end
 		end
@@ -50,6 +50,11 @@ AddEventHandler('inv:open', function(inventory)
   	})
 
   	SetNuiFocus(true, true)
+end)
+
+RegisterNUICallback('closeInventory', function()
+	SetNuiFocus(false, false)
+	inv_ui = false
 end)
 
 RegisterNUICallback('onUseItem', function(data)

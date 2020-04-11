@@ -1,8 +1,26 @@
 $('.inv_overlay').hide();
-$('.trade_overlay').hide();
-$('.craft_overlay').hide();
-$('.vehicle_overlay').hide();
+var inventory_open = false;
 
+$('.craft_overlay').hide();
+var craft_open = false;
+
+$('.trade_overlay').hide();
+var trade_open = false;
+
+$('.vehicle_overlay').hide();
+var vehicle_open = false;
+
+let inventory = []
+
+let drinks = []
+let food = []
+let usables = []
+let meds = []
+let melee = []
+let handgun = []
+let primary = []
+
+// Inventory
 var selectedSlot = "nothing"
 var selectedItemName = "nothing"
 var selectedItemId = -1
@@ -20,70 +38,69 @@ var selectedUsable = 0
 var fPressed = 0
 var pressed = false
 
-let inventory = []
-let drinks = []
-let food = []
-let usables = []
-let meds = []
-let melee = []
-let handgun = []
-let primary = []
+// Crafting
 
-//Setup()
+
+// Trading
+
+// Vehicle
 
 window.addEventListener('message', (event) => {
   if (event.data.action == 'open_inventory') {
+    inventory = event.data.items
+    drinks = []
+    food = []
+    usables = []
+    meds = []
+    melee = []
+    handgun = []
+    primary = []
 
-      inventory = event.data.items
-      drinks = []
-      food = []
-      usables = []
-      meds = []
-      melee = []
-      handgun = []
-      primary = []
-
-      if (inventory != undefined) {
-        inventory.forEach(function(item) {
-          if (item.use == 1) {
-            // Drinks
-            drinks.push(item)
-      
-          } else if (item.use == 2) {
-            // Food
-            food.push(item)
-      
-          } else if (item.use == 3 || item.use == 8) {
-            // Usable
-            usables.push(item)
-      
-          } else if (item.use == 4) {
-            // Medical Supplies
-            meds.push(item)
+    if (inventory != undefined) {
+      inventory.forEach(function(item) {
+        if (item.use == 1) {
+          // Drinks
+          drinks.push(item)
     
-          } else if (item.use == 5) {
-            // Melee Weapon
-            melee.push(item)
+        } else if (item.use == 2) {
+          // Food
+          food.push(item)
     
-          } else if (item.use == 6) {
-            // Handgun
-            handgun.push(item)
+        } else if (item.use == 3 || item.use == 8) {
+          // Usable
+          usables.push(item)
     
-          } else if (item.use == 7) {
-            // Primary Weapon
-            primary.push(item)
-    
-          } else {
-            console.log("Unknown item")
-          }
-        })
-
-        Setup()
-      }
+        } else if (item.use == 4) {
+          // Medical Supplies
+          meds.push(item)
+  
+        } else if (item.use == 5) {
+          // Melee Weapon
+          melee.push(item)
+  
+        } else if (item.use == 6) {
+          // Handgun
+          handgun.push(item)
+  
+        } else if (item.use == 7) {
+          // Primary Weapon
+          primary.push(item)
+  
+        } else {
+          console.log("Unknown item")
+        }
+      })
+      SetupInventory()
     }
+  } else if (event.data.action == 'open_crafting') {
+    inventory = event.data.items
+    if (inventory != undefined) {
+      SetupCrafting()
+    }
+  }
 });
 
-function Setup() {
+function SetupInventory() {
   selectedSlot = "nothing"
   selectedItemName = "nothing"
   selectedItemId = -1
@@ -98,11 +115,12 @@ function Setup() {
   selectedMed = 0
   selectedUsable = 0
 
-  Update();
+  UpdateInventory();
   $('.inv_overlay').show();
+  inventory_open = true
 }
 
-function Update() {
+function UpdateInventory() {
   if (melee[selectedMelee] != undefined) {
     document.getElementById('MeleeImage').src = melee[selectedMelee].image;
     document.getElementById('MeleeName').innerHTML = melee[selectedMelee].n;
@@ -175,8 +193,11 @@ function Update() {
 
 window.addEventListener("keydown", function(event){
   if (event.which == 9 || event.which == 27 || event.which == 71) {
-    $('.inv_overlay').hide();
-    $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: "Holster", itemId: 0 }));
+    if (inventory_open == true) {
+      $('.inv_overlay').hide();
+      inventory_open = false;
+      $.post('http://b_inventory/closeInventory');
+    }
   } else if (event.which == 70 && pressed == false) {
     if (selectedSlot != "nothing") {
       pressed = true
@@ -199,7 +220,7 @@ document.getElementById("melee").addEventListener("wheel", function(event) {
     selectedMelee = melee.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 document.getElementById("handgun").addEventListener("wheel", function(event) {
@@ -215,7 +236,7 @@ document.getElementById("handgun").addEventListener("wheel", function(event) {
     selectedHandgun = handgun.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 document.getElementById("primary").addEventListener("wheel", function(event) {
@@ -231,7 +252,7 @@ document.getElementById("primary").addEventListener("wheel", function(event) {
     selectedPrimary = primary.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 document.getElementById("meds").addEventListener("wheel", function(event) {
@@ -247,7 +268,7 @@ document.getElementById("meds").addEventListener("wheel", function(event) {
     selectedMed = meds.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 document.getElementById("usables").addEventListener("wheel", function(event) {
@@ -263,7 +284,7 @@ document.getElementById("usables").addEventListener("wheel", function(event) {
     selectedUsable = usables.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 document.getElementById("food").addEventListener("wheel", function(event) {
@@ -279,7 +300,7 @@ document.getElementById("food").addEventListener("wheel", function(event) {
     selectedFood = food.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 document.getElementById("drinks").addEventListener("wheel", function(event) {
@@ -295,35 +316,37 @@ document.getElementById("drinks").addEventListener("wheel", function(event) {
     selectedDrink = drinks.length - 1
   }
 
-  Update();
+  UpdateInventory();
 });
 
 window.addEventListener('mousemove', function(e){
   e = e || window.event;
   var target = e.target || e.srcElement;
 
-  if (pressed == false) {
-    if (target.id == "inventory_overlay" || target.id == "weapons_row" || target.id == "items_row") {
-      document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("primary").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("meds").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
-      selectedSlot = "nothing"
-    } else {
-      document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("primary").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("meds").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
-      document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
-      selectedSlot = target.id
-      document.getElementById(target.id).style.background = "rgba(0, 0, 0, 0.4)";
+  if (inventory_open == true) {
+    if (pressed == false) {
+      if (target.id == "inventory_overlay" || target.id == "weapons_row" || target.id == "items_row") {
+        document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("primary").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("meds").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
+        selectedSlot = "nothing"
+      } else {
+        document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("primary").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("meds").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
+        selectedSlot = target.id
+        document.getElementById(target.id).style.background = "rgba(0, 0, 0, 0.4)";
+      }
     }
   }
 });
@@ -333,98 +356,47 @@ window.addEventListener('click', function(e) {
     var target = e.target || e.srcElement;
     var type = target.id;
 
-    if (type == "melee") {
-      selectedItemUse = 5
-      selectedItemId = melee[selectedMelee].id
-      selectedItemName = melee[selectedMelee].n
-      selectedItemCount = melee[selectedMelee].count
-    } else if (type == "handgun") {
-      selectedItemUse = 6
-      selectedItemId = handgun[selectedHandgun].id
-      selectedItemName = handgun[selectedHandgun].n
-      selectedItemCount = handgun[selectedHandgun].count
-    } else if (type == "primary") {
-      selectedItemUse = 7
-      selectedItemId = primary[selectedPrimary].id
-      selectedItemName = primary[selectedPrimary].n
-      selectedItemCount = primary[selectedPrimary].count
-    } else if (type == "meds") {
-      selectedItemUse = 4
-      selectedItemId = meds[selectedMed].id
-      selectedItemName = meds[selectedMed].n
-      selectedItemCount = meds[selectedMed].count
-    } else if (type == "usables") {
-      selectedItemUse = usables[selectedUsable].use
-      selectedItemId = usables[selectedUsable].id
-      selectedItemName = usables[selectedUsable].n
-      selectedItemCount = usables[selectedUsable].count
-    } else if (type == "food") {
-      selectedItemUse = 2
-      selectedItemId = food[selectedFood].id
-      selectedItemName = food[selectedFood].n
-      selectedItemCount = food[selectedFood].count
-    } else if (type == "drinks") {
-      selectedItemUse = 1
-      selectedItemId = drinks[selectedDrink].id
-      selectedItemName = drinks[selectedDrink].n
-      selectedItemCount = drinks[selectedDrink].count
-    } else if (type == "holster") {
-      selectedItemUse = 0
-      selectedItemId = 0
-      selectedItemName = "Holster"
-      selectedItemCount = 0
-    } else  {
-      selectedItemId = -1
-      selectedItemUse = -1
-      selectedItemName = "Empty"
-      selectedItemCount = -1
-    }
-
-    if (selectedItemId >= 0){
-      $('.inv_overlay').hide();
-      $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
-    }
-}, false);
-
-window.addEventListener("keyup", function(event){
-  if (event.which == 70 && pressed == true) {
-    var duration = (event.timeStamp - fPressed) / 1000
-    if (duration > 1) {
-      if (selectedSlot == "melee") {
+    if (inventory_open == true) {
+      if (type == "melee") {
         selectedItemUse = 5
         selectedItemId = melee[selectedMelee].id
         selectedItemName = melee[selectedMelee].n
         selectedItemCount = melee[selectedMelee].count
-      } else if (selectedSlot == "handgun") {
+      } else if (type == "handgun") {
         selectedItemUse = 6
         selectedItemId = handgun[selectedHandgun].id
         selectedItemName = handgun[selectedHandgun].n
         selectedItemCount = handgun[selectedHandgun].count
-      } else if (selectedSlot == "primary") {
+      } else if (type == "primary") {
         selectedItemUse = 7
         selectedItemId = primary[selectedPrimary].id
         selectedItemName = primary[selectedPrimary].n
         selectedItemCount = primary[selectedPrimary].count
-      } else if (selectedSlot == "meds") {
+      } else if (type == "meds") {
         selectedItemUse = 4
         selectedItemId = meds[selectedMed].id
         selectedItemName = meds[selectedMed].n
         selectedItemCount = meds[selectedMed].count
-      } else if (selectedSlot == "usables") {
+      } else if (type == "usables") {
         selectedItemUse = usables[selectedUsable].use
         selectedItemId = usables[selectedUsable].id
         selectedItemName = usables[selectedUsable].n
         selectedItemCount = usables[selectedUsable].count
-      } else if (selectedSlot == "food") {
+      } else if (type == "food") {
         selectedItemUse = 2
         selectedItemId = food[selectedFood].id
         selectedItemName = food[selectedFood].n
         selectedItemCount = food[selectedFood].count
-      } else if (selectedSlot == "drinks") {
+      } else if (type == "drinks") {
         selectedItemUse = 1
         selectedItemId = drinks[selectedDrink].id
         selectedItemName = drinks[selectedDrink].n
         selectedItemCount = drinks[selectedDrink].count
+      } else if (type == "holster") {
+        selectedItemUse = 0
+        selectedItemId = 0
+        selectedItemName = "Holster"
+        selectedItemCount = 0
       } else  {
         selectedItemId = -1
         selectedItemUse = -1
@@ -433,20 +405,95 @@ window.addEventListener("keyup", function(event){
       }
   
       if (selectedItemId >= 0){
-        $.post('http://b_inventory/onDropItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
+        $('.inv_overlay').hide();
+        inventory_open = false;
+        $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
       }
     }
-      
-    document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("primary").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("meds").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
-    document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
 
-    fPressed = 0
-    pressed = false
+}, false);
+
+window.addEventListener("keyup", function(event){
+  if (inventory_open == true) {
+    if (event.which == 70 && pressed == true) {
+      var duration = (event.timeStamp - fPressed) / 1000
+      if (duration > 1) {
+        if (selectedSlot == "melee") {
+          selectedItemUse = 5
+          selectedItemId = melee[selectedMelee].id
+          selectedItemName = melee[selectedMelee].n
+          selectedItemCount = melee[selectedMelee].count
+        } else if (selectedSlot == "handgun") {
+          selectedItemUse = 6
+          selectedItemId = handgun[selectedHandgun].id
+          selectedItemName = handgun[selectedHandgun].n
+          selectedItemCount = handgun[selectedHandgun].count
+        } else if (selectedSlot == "primary") {
+          selectedItemUse = 7
+          selectedItemId = primary[selectedPrimary].id
+          selectedItemName = primary[selectedPrimary].n
+          selectedItemCount = primary[selectedPrimary].count
+        } else if (selectedSlot == "meds") {
+          selectedItemUse = 4
+          selectedItemId = meds[selectedMed].id
+          selectedItemName = meds[selectedMed].n
+          selectedItemCount = meds[selectedMed].count
+        } else if (selectedSlot == "usables") {
+          selectedItemUse = usables[selectedUsable].use
+          selectedItemId = usables[selectedUsable].id
+          selectedItemName = usables[selectedUsable].n
+          selectedItemCount = usables[selectedUsable].count
+        } else if (selectedSlot == "food") {
+          selectedItemUse = 2
+          selectedItemId = food[selectedFood].id
+          selectedItemName = food[selectedFood].n
+          selectedItemCount = food[selectedFood].count
+        } else if (selectedSlot == "drinks") {
+          selectedItemUse = 1
+          selectedItemId = drinks[selectedDrink].id
+          selectedItemName = drinks[selectedDrink].n
+          selectedItemCount = drinks[selectedDrink].count
+        } else  {
+          selectedItemId = -1
+          selectedItemUse = -1
+          selectedItemName = "Empty"
+          selectedItemCount = -1
+        }
+    
+        if (selectedItemId >= 0){
+          $.post('http://b_inventory/onDropItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
+        }
+      }
+        
+      document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("primary").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("meds").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
+  
+      fPressed = 0
+      pressed = false
+    }
   }
 });
+
+function SetupCrafting() {
+  $('.craft_overlay').show();
+  craft_open = true;
+}
+
+function CraftMouseMove() {
+
+}
+
+function CraftMouseClick() {
+
+}
+
+function CraftClose() {
+  $('.craft_overlay').hide();
+  craft_open = false;
+}

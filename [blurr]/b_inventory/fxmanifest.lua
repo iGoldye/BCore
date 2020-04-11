@@ -1,13 +1,20 @@
-description 'B-Core inventory wheel'
+description 'B-Core inventory'
 
 ui_page 'html/index.html'
 
 client_scripts {
-	'cl_inventory.lua',
+    'cl_inventory.lua',
+    'cl_crafting.lua',
+    'cl_trading.lua',
+    'cl_vehicle.lua',
+    'cl_shared.lua'
 }
 
 server_scripts {
 	'sv_inventory.lua',
+    'sv_crafting.lua',
+    'sv_trading.lua',
+    'sv_vehicle.lua',
 }
 
 files {

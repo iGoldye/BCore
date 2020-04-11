@@ -1,4 +1,4 @@
-.overlay {
+.inv_overlay, .craft_overlay, .trade_overlay, .vehicle_overlay {
   position:absolute;
   top:0px;
   bottom:0px;
@@ -7,6 +7,7 @@
   width:1200px;
   height:250px;
   margin:auto;
+  margin-top: 1%;
 }
 
 .info_divider {
