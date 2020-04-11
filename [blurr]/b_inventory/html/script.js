@@ -197,6 +197,10 @@ window.addEventListener("keydown", function(event){
       $('.inv_overlay').hide();
       inventory_open = false;
       $.post('http://b_inventory/closeInventory');
+    } else if (craft_open == true) {
+      $('.craft_overlay').hide();
+      craft_open = false;
+      $.post('http://b_inventory/closeCrafting');
     }
   } else if (event.which == 70 && pressed == false) {
     if (selectedSlot != "nothing") {
@@ -325,7 +329,7 @@ window.addEventListener('mousemove', function(e){
 
   if (inventory_open == true) {
     if (pressed == false) {
-      if (target.id == "inventory_overlay" || target.id == "weapons_row" || target.id == "items_row") {
+      if (target.id == "inventory_overlay" || target.id == "crafting_overlay" || target.id == "trading_overlay" || target.id == "vehicleinv_overlay" || target.id == "weapons_row" || target.id == "items_row") {
         document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
@@ -348,6 +352,8 @@ window.addEventListener('mousemove', function(e){
         document.getElementById(target.id).style.background = "rgba(0, 0, 0, 0.4)";
       }
     }
+  } else if (craft_open == true) {
+    CraftMouseMove()
   }
 });
 
@@ -409,6 +415,8 @@ window.addEventListener('click', function(e) {
         inventory_open = false;
         $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
       }
+    } else if (craft_open == true) {
+      CraftMouseClick()
     }
 
 }, false);
@@ -491,9 +499,4 @@ function CraftMouseMove() {
 
 function CraftMouseClick() {
 
-}
-
-function CraftClose() {
-  $('.craft_overlay').hide();
-  craft_open = false;
 }
