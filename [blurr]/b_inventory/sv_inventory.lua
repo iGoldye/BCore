@@ -84,7 +84,7 @@ AddEventHandler('inv:pickupItem', function(item)
 			for i,v in pairs(DroppedItems) do
 				if (v.id == item.id and v.location == item.location) then
 					if (user.GiveItem(v.id, v.count)) then
-						TriggerClientEvent('inv:removeDroppedItem', source, v)
+						TriggerClientEvent('inv:removeDroppedItem', source, v, inventory)
 
 						table.remove(DroppedItems, i)
 						TriggerClientEvent('inv:syncDroppedItems', -1, DroppedItems)

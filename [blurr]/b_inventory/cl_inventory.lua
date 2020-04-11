@@ -108,11 +108,18 @@ AddEventHandler('inv:placeDroppedItem', function(location, time, item, objectNam
 end)
 
 RegisterNetEvent('inv:removeDroppedItem')
-AddEventHandler('inv:removeDroppedItem', function(item)
+AddEventHandler('inv:removeDroppedItem', function(item, inventory)
+	inv = inventory
+
 	for i,v in pairs(pickups) do
 		if (v.id == item.id and v.object == item.object) then
 			SetEntityAsMissionEntity(item.object)
 			DeleteObject(item.object)
+			
+			if (v.use == 5 or v.use == 6 or v.use == 7) then
+				local weapon = GetHashKey(v.model)
+        		GiveWeaponToPed(GetPlayerPed(-1), weapon, v.count, 0, true)
+			end
 		end
 	end
 end)
