@@ -42,6 +42,10 @@ var pressed = false
 
 
 // Trading
+let otherInventory = []
+let tradeReceive = []
+let tradeSend = []
+var tradeName = "Placeholder Name"
 
 // Vehicle
 
@@ -96,6 +100,30 @@ window.addEventListener('message', (event) => {
     inventory = event.data.items
     if (inventory != undefined) {
       SetupCrafting()
+    }
+  } else if (event.data.action == 'open_trading') {
+    inventory = event.data.items
+    otherInventory = event.data.otherInv
+    tradeName = event.data.tradeName
+
+    if (inventory != undefined && otherInventory != undefined) {
+      SetupTrading()
+    }
+  } else if (event.data.action == 'cancel_trading') {
+    if (trade_open == true) {
+      $('.trade_overlay').hide();
+      trade_open = false;
+      $.post('http://b_inventory/closeTrading');
+    }
+  } else if (event.data.action == 'accept_trading') {
+    if (trade_open == true) {
+      $('.trade_overlay').hide();
+      trade_open = false;
+      $.post('http://b_inventory/completeTrading', JSON.stringify({ in: tradeReceive, out: tradeSend }));
+    }
+  } else if (event.data.action == 'update_trading') {
+    if (trade_open == true) {
+      tradeReceive.push(event.data.itemAdd)
     }
   }
 });
@@ -507,4 +535,9 @@ function CraftMouseMove() {
 
 function CraftMouseClick() {
 
+}
+
+function SetupTrade() {
+  tradeReceive = []
+  tradeSend = []
 }
