@@ -25,3 +25,8 @@ AddEventHandler('trade:requestTrade', function(target)
 		end
 	end)
 end)
+
+RegisterServerEvent('trade:update')
+AddEventHandler('trade:update', function(target, cancel, accept, itemToAdd)
+	TriggerClientEvent('trade:update', target, cancel, accept, itemToAdd)
+end)

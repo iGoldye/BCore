@@ -38,6 +38,28 @@ AddEventHandler('trade:open', function(inventory, weight, count, otherInventory,
   	SetNuiFocus(true, true)
 end)
 
+RegisterNUICallback('updateTrade', function(data)
+	TriggerServerEvent('trade:update', otherId, data.cancel, data.accept, data.offeredItem)
+end)
+
+RegisterNetEvent('trade:update')
+AddEventHandler('trade:update', function(cancel, accept, itemToAdd)
+	if cancel then
+		SendNUIMessage({
+    		action = 'cancel_trading',
+  		})
+	elseif accept then
+		SendNUIMessage({
+    		action = 'accept_trading',
+  		})
+	else
+		SendNUIMessage({
+    		action = 'update_trading',
+    		itemAdd = itemToAdd,
+  		})
+	end
+end)
+
 RegisterNUICallback('closeTrading', function()
 	SetNuiFocus(false, false)
 	trade_ui = false
