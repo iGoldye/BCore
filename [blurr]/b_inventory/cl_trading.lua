@@ -40,3 +40,12 @@ RegisterNUICallback('closeTrading', function()
 	otherInv = {}
 	tradeName = "Other Players Name"
 end)
+
+RegisterNUICallback('completeTrading', function(data)
+	SetNuiFocus(false, false)
+	trade_ui = false
+	otherInv = {}
+	tradeName = "Other Players Name"
+
+	TriggerServerEvent('trade:completeTrade', data.out, data.in)
+end)
