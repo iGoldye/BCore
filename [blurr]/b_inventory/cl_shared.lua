@@ -1,4 +1,5 @@
 inv = {}
+otherInv = {}
 
 inv_ui = false
 craft_ui = false
