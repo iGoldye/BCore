@@ -2,12 +2,14 @@ RegisterNUICallback('requestTrading', function()
 	SetNuiFocus(false, false)
 	inv_ui = false
 
-	otherInv = {}
-	tradeName = "Other Players Name"
+	ResetTradeVars()
 
 	local t, distance = GetClosestPlayer()
 	if(distance ~= -1 and distance < 3) then
-		TriggerServerEvent("trade:requestTrade", GetPlayerServerId(t))
+		otherId = GetPlayerServerId(t)
+		TriggerServerEvent("trade:requestTrade", otherId)
+	else
+		print("Oopsie, I made a poopsie.")
 	end
 end)
 
@@ -26,8 +28,10 @@ AddEventHandler('trade:open', function(inventory, weight, count, otherInventory,
 	tradeName = name
 
 	SendNUIMessage({
-    	action = 'open_inventory',
-    	items = inv
+    	action = 'open_trading',
+    	items = inv,
+    	itemsW = invWeight,
+    	itemsC = invCount,
   	})
 
 	trade_ui = true
@@ -37,15 +41,19 @@ end)
 RegisterNUICallback('closeTrading', function()
 	SetNuiFocus(false, false)
 	trade_ui = false
-	otherInv = {}
-	tradeName = "Other Players Name"
+	ResetTradeVars()
 end)
 
 RegisterNUICallback('completeTrading', function(data)
 	SetNuiFocus(false, false)
 	trade_ui = false
-	otherInv = {}
-	tradeName = "Other Players Name"
+	ResetTradeVars()
 
 	TriggerServerEvent('trade:completeTrade', data.out, data.in)
 end)
+
+function ResetTradeVars()
+	otherInv = {}
+	tradeName = "Other Players Name"
+	otherId = 0
+end

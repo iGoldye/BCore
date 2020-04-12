@@ -14,6 +14,7 @@ crafting_locations = {
 
 tradeName = "Other Players Name"
 otherInv = {}
+otherId = 0
 
 function DrawText3D(x, y, z, r, g, b, text)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)
