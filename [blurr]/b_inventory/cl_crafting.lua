@@ -29,6 +29,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNUICallback('openCrafting', function()
+	SetNuiFocus(false, false)
+	inv_ui = false
+
+	-- IMPLEMENT
+end)
+
 RegisterNetEvent('craft:open')
 AddEventHandler('craft:open', function(inventory, weight, count)
 	inv = inventory

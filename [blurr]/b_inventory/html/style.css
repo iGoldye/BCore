@@ -7,7 +7,28 @@
   width:1200px;
   height:250px;
   margin:auto;
-  margin-top: 1%;
+  margin-top: 5px;
+}
+
+.buttons_row {
+  position:relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:5px;
+}
+
+.button {
+  position:relative;
+  display: inline-block;
+  background: rgba(0,0,0,0.1);
+  padding:1em 1em;
+  margin-left:10px;
+  margin-right:10px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 1px;
+  width: 85px;
+  height: 5px;
 }
 
 .info_divider {
@@ -26,12 +47,12 @@
 .weapon_slot {
   position:relative;
   display: inline-block;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.1);
   padding:1em 1em;
   margin-left:15px;
   margin-right:15px;
   border: 1px solid rgba(0,0,0,0.2);
-  border-radius: 4px;
+  border-radius: 1px;
   width: 265px;
   height: 110px;
 }
@@ -65,7 +86,7 @@
   margin-left:10px;
   margin-right:10px;
   border: 1px solid rgba(0,0,0,0.2);
-  border-radius: 3px;
+  border-radius: 1px;
   width: 125px;
   height: 110px;
 }
@@ -91,7 +112,7 @@ h3 {
   margin-left: 2px;
   margin-right: 2px;
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
   pointer-events: none;

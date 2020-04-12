@@ -414,6 +414,14 @@ window.addEventListener('click', function(e) {
         $('.inv_overlay').hide();
         inventory_open = false;
         $.post('http://b_inventory/onUseItem', JSON.stringify({ itemName: selectedItemName, itemId: selectedItemId, itemUse: selectedItemUse, itemCount: selectedItemCount }));
+      } else if (type == "trade_button") {
+        $('.inv_overlay').hide();
+        inventory_open = false;
+        $.post('http://b_inventory/requestTrading');
+      } else if (type == "craft_button") {
+        $('.inv_overlay').hide();
+        inventory_open = false;
+        $.post('http://b_inventory/openCrafting');
       }
     } else if (craft_open == true) {
       CraftMouseClick()
