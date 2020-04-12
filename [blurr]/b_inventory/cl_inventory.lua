@@ -41,12 +41,16 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent('inv:open')
-AddEventHandler('inv:open', function(inventory)
+AddEventHandler('inv:open', function(inventory, weight, count)
 	inv = inventory
+	invWeight = weight
+	invCount = count
 
 	SendNUIMessage({
     	action = 'open_inventory',
-    	items = inv
+    	items = inv,
+    	itemsW = invWeight,
+    	itemsC = invCount,
   	})
 
   	SetNuiFocus(true, true)

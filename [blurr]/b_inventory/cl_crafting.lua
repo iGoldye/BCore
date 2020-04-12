@@ -30,13 +30,17 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent('craft:open')
-AddEventHandler('craft:open', function(inventory)
+AddEventHandler('craft:open', function(inventory, weight, count)
 	inv = inventory
+	invWeight = weight
+	invCount = count
 
 	SendNUIMessage({
     	action = 'open_crafting',
-    	items = inv
-    	location = location
+    	items = inv,
+    	itemsW = invWeight,
+    	itemsC = invCount,
+    	location = location,
   	})
 
   	SetNuiFocus(true, true)
