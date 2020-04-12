@@ -286,6 +286,18 @@ function CreateUser(source, data)
 
 		return inventoryWeight
 	end
+	user.GetItemsCount = function()
+		local inventoryCount = 0
+		for i,v in pairs(self.characters[self.selectedCharacter]["inventory"].player) do
+			if (v.use == 5 or v.use == 6 or v.use == 7) then
+				inventoryCount = inventoryCount + 1
+			else
+				inventoryCount = inventoryCount + v.count
+			end
+		end
+
+		return inventoryCount
+	end
 	user.GiveItem = function(itemId, itemQty)
 		local inventoryWeight = 0
 		for i,v in pairs(self.characters[self.selectedCharacter]["inventory"].player) do
