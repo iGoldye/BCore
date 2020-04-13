@@ -4,8 +4,8 @@
   bottom:0px;
   left:0px;
   right:0px;
-  width:1200px;
-  height:250px;
+  width:100%;
+  height:90%;
   margin:auto;
   margin-top: 5px;
 }
@@ -53,19 +53,19 @@
   margin-right:15px;
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 1px;
-  width: 265px;
+  width: 285px;
   height: 110px;
 }
 
 .weapon_divider {
-  width: 265px;
+  width: 285px;
   height: 95px;
   pointer-events: none;
 }
 
 #MeleeImage, #HandgunImage, #PrimaryImage {
   order: top;
-  max-width: 265px;
+  max-width: 285px;
   max-height:80px;
   pointer-events: none;
 }
@@ -87,12 +87,12 @@
   margin-right:10px;
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 1px;
-  width: 125px;
+  width: 135px;
   height: 110px;
 }
 
 .item_divider {
-  width: 125px;
+  width: 135px;
   height: 95px;
   pointer-events: none;
 }
@@ -100,7 +100,7 @@
 #DrinksImage, #FoodImage, #MedsImage, #UsablesImage, #HolsterImage {
   order: top;
   position:relative;
-  max-width: 125px;
+  max-width: 135px;
   max-height:80px;
   pointer-events: none;
 }

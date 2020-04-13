@@ -1,0 +1,55 @@
+.trade_overlay {
+	text-align: center;
+}
+
+.trade_inventory {
+  position:relative;
+  display: inline-block;
+  background: rgba(0,0,0,0.1);
+  padding:1em 1em;
+  margin-left:40px;
+  margin-right:40px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 1px;
+  width: 650px;
+  height: 600px;
+}
+
+.active_trade {
+  position:relative;
+  display: inline-block;
+  background: rgba(0,0,0,0.1);
+  padding:1em 1em;
+  margin-top:20px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 1px;
+  width: 1420px;
+  height: 200px;
+}
+
+.trade_inventory_slots {
+	position:relative;
+	width:100%;
+	height:80%;
+}
+
+.trade_active_slots {
+	position:relative;
+	text-align: left;
+	width:100%;
+	height:100%;
+}
+
+.item_slot_trade {
+  position:relative;
+  display: inline-block;
+  text-align: center;
+  background: rgba(0,0,0,0.1);
+  padding:1em 1em;
+  margin-left:10px;
+  margin-right:10px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 1px;
+  width: 135px;
+  height: 110px;
+}

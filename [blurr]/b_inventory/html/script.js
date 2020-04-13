@@ -4,7 +4,7 @@ var inventory_open = false;
 $('.craft_overlay').hide();
 var craft_open = false;
 
-$('.trade_overlay').hide();
+//$('.trade_overlay').hide();
 var trade_open = false;
 
 $('.vehicle_overlay').hide();
@@ -537,7 +537,32 @@ function CraftMouseClick() {
 
 }
 
-function SetupTrade() {
+SetupTrading();
+function SetupTrading() {
   tradeReceive = []
   tradeSend = []
+
+  document.getElementById("other_name").innerHTML = tradeName;
+
+  var template = document.querySelector('#trade_item_template');
+
+  var mytradeinv = document.querySelector("#trade_inventory_slots");
+  inventory.forEach(function(item) {
+    var clone = template.content.cloneNode(true);
+    var mytradeinv = clone.querySelector("#trade_item");
+    mytradeinv.querySelector("#trade_item_div").querySelector("#ItemImage").src = item.image;
+    mytradeinv.querySelector("#trade_item_info").querySelector("#ItemName").innerHTML = item.n;
+    mytradeinv.querySelector("#trade_item_info").querySelector("#ItemCount").innerHTML = item.count;
+    mytradeinv.appendChild(clone);
+  });
+
+  var theirtradeinv = document.querySelector("#thier_inventory_slots");
+  otherInventory.forEach(function(item) {
+    var clone = template.content.cloneNode(true);
+    var theirtradeinv = clone.querySelector("#trade_item");
+    theirtradeinv.querySelector("#trade_item_div").querySelector("#ItemImage").src = item.image;
+    theirtradeinv.querySelector("#trade_item_info").querySelector("#ItemName").innerHTML = item.n;
+    theirtradeinv.querySelector("#trade_item_info").querySelector("#ItemCount").innerHTML = item.count;
+    theirtradeinv.appendChild(clone);
+  });
 }

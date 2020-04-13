@@ -102,11 +102,40 @@
   <h1>CRAFTING!</h1>
 </div>
 <div class="trade_overlay", id="trading_overlay">
-  <h1>TRADING!</h1>
+  <div class="trade_div">
+    <div class="trade_inventory", id="my_inventory">
+      <h3>You</h3>
+      <div class="trade_inventory_slots", id="trade_inventory_slots">
+        
+      </div>
+    </div>
+    <div class="trade_inventory", id="their_inventory">
+      <h3 id="other_name">Placeholder Person</h3>
+      <div class="trade_inventory_slots", id="thier_inventory_slots">
+        
+      </div>
+    </div>
+    <div class="active_trade">
+      <div class="trade_active_slots", id="trade_active_slots">
+        
+    </div>
+  </div>
 </div>
 <div class="vehicle_overlay", id="vehicleinv_overlay">
   <h1>VEHICLE INVENTORY!</h1>
 </div>
+
+<template id="trade_item_template">
+  <div class="item_slot_trade", id="trade_item">
+    <div class="item_divider", id="trade_item_div">
+      <img id="ItemImage", src="img/placeholderi.png"></img>
+    </div>
+    <div class="info_divider", id="trade_item_info">
+      <h3 id="ItemName">Srap Metal</h3>
+      <h3 id="ItemCount">5</h3>
+    </div>
+  </div>
+</template>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/SoundJS/1.0.2/soundjs.min.js'></script><script  src="./script.js"></script>
 </body>
