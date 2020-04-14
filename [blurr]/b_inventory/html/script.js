@@ -229,6 +229,11 @@ window.addEventListener("keydown", function(event){
       $('.craft_overlay').hide();
       craft_open = false;
       $.post('http://b_inventory/closeCrafting');
+    } else if (trade_open == true) {
+      $('.trade_overlay').hide();
+      trade_open = false;
+      $.post('http://b_inventory/updateTrade', JSON.stringify({cancel: true, accept: false, offeredItem: undefined});
+      $.post('http://b_inventory/closeTrade');
     }
   } else if (event.which == 70 && pressed == false) {
     if (selectedSlot != "nothing") {
