@@ -30,6 +30,8 @@ AddEventHandler('trade:open', function(inventory, weight, count, otherInventory,
 	SendNUIMessage({
     	action = 'open_trading',
     	items = inv,
+    	otherInv = otherInv,
+    	tradeName = tradeName,
     	itemsW = invWeight,
     	itemsC = invCount,
   	})
@@ -38,8 +40,12 @@ AddEventHandler('trade:open', function(inventory, weight, count, otherInventory,
   	SetNuiFocus(true, true)
 end)
 
-RegisterNUICallback('updateTrade', function(data)
+RegisterNUICallback('updateTrading', function(data)
 	TriggerServerEvent('trade:update', otherId, data.cancel, data.accept, data.offeredItem)
+
+	SetNuiFocus(false, false)
+	trade_ui = false
+	ResetTradeVars()
 end)
 
 RegisterNetEvent('trade:update')
@@ -100,4 +106,16 @@ function GetClosestPlayer()
 	end
 	
 	return closestPlayer, closestDistance
+end
+
+function GetPlayers()
+    local players = {}
+
+    for i = 0, 31 do
+        if NetworkIsPlayerActive(i) then
+            table.insert(players, i)
+        end
+    end
+
+    return players
 end

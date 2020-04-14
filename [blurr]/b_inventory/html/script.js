@@ -106,9 +106,7 @@ window.addEventListener('message', (event) => {
     otherInventory = event.data.otherInv
     tradeName = event.data.tradeName
 
-    if (inventory != undefined && otherInventory != undefined) {
-      SetupTrading()
-    }
+    SetupTrading()
   } else if (event.data.action == 'cancel_trading') {
     if (trade_open == true) {
       $('.trade_overlay').hide();
@@ -232,8 +230,7 @@ window.addEventListener("keydown", function(event){
     } else if (trade_open == true) {
       $('.trade_overlay').hide();
       trade_open = false;
-      $.post('http://b_inventory/updateTrade', JSON.stringify({cancel: true, accept: false, offeredItem: undefined}));
-      $.post('http://b_inventory/closeTrade');
+      $.post('http://b_inventory/updateTrading', JSON.stringify({cancel: true, accept: false, offeredItem: undefined}));
     }
   } else if (event.which == 70 && pressed == false) {
     if (selectedSlot != "nothing") {
@@ -362,7 +359,7 @@ window.addEventListener('mousemove', function(e){
 
   if (inventory_open == true) {
     if (pressed == false) {
-      if (target.id == "inventory_overlay" || target.id == "crafting_overlay" || target.id == "trading_overlay" || target.id == "vehicleinv_overlay" || target.id == "weapons_row" || target.id == "items_row" || target.id == "buttons_row") {
+      if (target.id == undefined || target.id == "" || target.id == "inventory_overlay" || target.id == "crafting_overlay" || target.id == "trading_overlay" || target.id == "vehicleinv_overlay" || target.id == "weapons_row" || target.id == "items_row" || target.id == "buttons_row") {
         document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";
@@ -381,8 +378,10 @@ window.addEventListener('mousemove', function(e){
         document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("craft_button").style.background = "rgba(0, 0, 0, 0.2)";
+        document.getElementById("trade_button").style.background = "rgba(0, 0, 0, 0.2)";
         selectedSlot = target.id
-        document.getElementById(target.id).style.background = "rgba(0, 0, 0, 0.4)";
+        document.getElementById(target.id).style.background = "rgba(0, 0, 10, 0.4)";
       }
     }
   } else if (craft_open == true) {
@@ -522,6 +521,8 @@ window.addEventListener("keyup", function(event){
       document.getElementById("usables").style.background = "rgba(0, 0, 0, 0.2)";
       document.getElementById("food").style.background = "rgba(0, 0, 0, 0.2)";
       document.getElementById("drinks").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("craft_button").style.background = "rgba(0, 0, 0, 0.2)";
+      document.getElementById("trade_button").style.background = "rgba(0, 0, 0, 0.2)";
   
       fPressed = 0
       pressed = false
@@ -542,32 +543,40 @@ function CraftMouseClick() {
 
 }
 
-SetupTrading();
 function SetupTrading() {
   tradeReceive = []
   tradeSend = []
 
-  document.getElementById("other_name").innerHTML = tradeName;
-
-  var template = document.querySelector('#trade_item_template');
-
-  var mytradeinv = document.querySelector("#trade_inventory_slots");
-  inventory.forEach(function(item) {
-    var clone = template.content.cloneNode(true);
-    var mytradeinv = clone.querySelector("#trade_item");
-    mytradeinv.querySelector("#trade_item_div").querySelector("#ItemImage").src = item.image;
-    mytradeinv.querySelector("#trade_item_info").querySelector("#ItemName").innerHTML = item.n;
-    mytradeinv.querySelector("#trade_item_info").querySelector("#ItemCount").innerHTML = item.count;
-    mytradeinv.appendChild(clone);
-  });
-
-  var theirtradeinv = document.querySelector("#thier_inventory_slots");
-  otherInventory.forEach(function(item) {
-    var clone = template.content.cloneNode(true);
-    var theirtradeinv = clone.querySelector("#trade_item");
-    theirtradeinv.querySelector("#trade_item_div").querySelector("#ItemImage").src = item.image;
-    theirtradeinv.querySelector("#trade_item_info").querySelector("#ItemName").innerHTML = item.n;
-    theirtradeinv.querySelector("#trade_item_info").querySelector("#ItemCount").innerHTML = item.count;
-    theirtradeinv.appendChild(clone);
-  });
+  if (inventory != undefined && otherInventory != undefined) {
+    document.getElementById("other_name").innerHTML = tradeName;
+  
+    /*var template = document.querySelector('#trade_item_template');
+  
+    var mytradeinv = document.querySelector("#trade_inventory_slots");
+    inventory.forEach(function(item) {
+      var clone = template.content.cloneNode(true);
+      var mytradeinv = clone.querySelector("#trade_item");
+      mytradeinv.querySelector("#trade_item_div").querySelector("#ItemImage").src = item.image;
+      mytradeinv.querySelector("#trade_item_info").querySelector("#ItemName").innerHTML = item.n;
+      mytradeinv.querySelector("#trade_item_info").querySelector("#ItemCount").innerHTML = item.count;
+      mytradeinv.appendChild(clone);
+    });
+  
+    var theirtradeinv = document.querySelector("#thier_inventory_slots");
+    otherInventory.forEach(function(item) {
+      var clone = template.content.cloneNode(true);
+      var theirtradeinv = clone.querySelector("#trade_item");
+      theirtradeinv.querySelector("#trade_item_div").querySelector("#ItemImage").src = item.image;
+      theirtradeinv.querySelector("#trade_item_info").querySelector("#ItemName").innerHTML = item.n;
+      theirtradeinv.querySelector("#trade_item_info").querySelector("#ItemCount").innerHTML = item.count;
+      theirtradeinv.appendChild(clone);
+    });*/
+  
+    $('.trade_overlay').show();
+    trade_open = true;
+  } else {
+    $('.trade_overlay').hide();
+    trade_open = false;
+    $.post('http://b_inventory/updateTrading', JSON.stringify({cancel: true, accept: false, offeredItem: undefined}));
+  }
 }
