@@ -119,7 +119,7 @@ window.addEventListener('message', (event) => {
     if (trade_open == true) {
       $('.trade_overlay').hide();
       trade_open = false;
-      $.post('http://b_inventory/completeTrading', JSON.stringify({ in: tradeReceive, out: tradeSend }));
+      $.post('http://b_inventory/completeTrading', JSON.stringify({ ingoing: tradeReceive, outgoing: tradeSend }));
     }
   } else if (event.data.action == 'update_trading') {
     if (trade_open == true) {
@@ -229,6 +229,11 @@ window.addEventListener("keydown", function(event){
       $('.craft_overlay').hide();
       craft_open = false;
       $.post('http://b_inventory/closeCrafting');
+    } else if (trade_open == true) {
+      $('.trade_overlay').hide();
+      trade_open = false;
+      $.post('http://b_inventory/updateTrade', JSON.stringify({cancel: true, accept: false, offeredItem: undefined}));
+      $.post('http://b_inventory/closeTrade');
     }
   } else if (event.which == 70 && pressed == false) {
     if (selectedSlot != "nothing") {
@@ -357,7 +362,7 @@ window.addEventListener('mousemove', function(e){
 
   if (inventory_open == true) {
     if (pressed == false) {
-      if (target.id == "inventory_overlay" || target.id == "crafting_overlay" || target.id == "trading_overlay" || target.id == "vehicleinv_overlay" || target.id == "weapons_row" || target.id == "items_row") {
+      if (target.id == "inventory_overlay" || target.id == "crafting_overlay" || target.id == "trading_overlay" || target.id == "vehicleinv_overlay" || target.id == "weapons_row" || target.id == "items_row" || target.id == "buttons_row") {
         document.getElementById("holster").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("melee").style.background = "rgba(0, 0, 0, 0.2)";
         document.getElementById("handgun").style.background = "rgba(0, 0, 0, 0.2)";

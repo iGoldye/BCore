@@ -71,7 +71,7 @@ RegisterNUICallback('completeTrading', function(data)
 	trade_ui = false
 	ResetTradeVars()
 
-	TriggerServerEvent('trade:completeTrade', data.out, data.in)
+	TriggerServerEvent('trade:completeTrade', data.outgoing, data.ingoing)
 end)
 
 function ResetTradeVars()
