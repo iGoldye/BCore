@@ -4,7 +4,7 @@ var inventory_open = false;
 $('.craft_overlay').hide();
 var craft_open = false;
 
-//$('.trade_overlay').hide();
+$('.trade_overlay').hide();
 var trade_open = false;
 
 $('.vehicle_overlay').hide();
