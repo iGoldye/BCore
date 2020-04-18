@@ -8,6 +8,7 @@ AddEventHandler('playerSpawned', function(spawn)
     if IsLoggedIn then
         TriggerServerEvent('b:spawned')
         TriggerEvent('b:spawnedClient')
+        TriggerEvent('hud:updateHunger', 100, 100)
     else
         exports.spawnmanager:setAutoSpawn(false)
         TriggerEvent('b:freeze')

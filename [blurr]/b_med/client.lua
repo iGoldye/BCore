@@ -41,6 +41,7 @@ function RevivePlayer()
         
         NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, h, true, true, false)
         ClearPedTasksImmediately(ped)
+        TriggerEvent('hud:updateHunger', 100, 100)
     end)
 end
 
