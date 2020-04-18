@@ -1,6 +1,7 @@
 RegisterNUICallback('requestTrading', function()
 	SetNuiFocus(false, false)
 	inv_ui = false
+	TriggerEvent('hud:hide', false)
 
 	ResetTradeVars()
 
@@ -36,6 +37,7 @@ AddEventHandler('trade:open', function(inventory, weight, count, otherInventory,
     	itemsC = invCount,
   	})
 
+	TriggerEvent('hud:hide', true)
 	trade_ui = true
   	SetNuiFocus(true, true)
 end)
@@ -69,12 +71,14 @@ end)
 RegisterNUICallback('closeTrading', function()
 	SetNuiFocus(false, false)
 	trade_ui = false
+	TriggerEvent('hud:hide', false)
 	ResetTradeVars()
 end)
 
 RegisterNUICallback('completeTrading', function(data)
 	SetNuiFocus(false, false)
 	trade_ui = false
+	TriggerEvent('hud:hide', false)
 	ResetTradeVars()
 
 	TriggerServerEvent('trade:completeTrade', data.outgoing, data.ingoing)

@@ -53,17 +53,20 @@ AddEventHandler('inv:open', function(inventory, weight, count)
     	itemsC = invCount,
   	})
 
+	TriggerEvent('hud:hide', true)
   	SetNuiFocus(true, true)
 end)
 
 RegisterNUICallback('closeInventory', function()
 	SetNuiFocus(false, false)
 	inv_ui = false
+	TriggerEvent('hud:hide', false)
 end)
 
 RegisterNUICallback('onUseItem', function(data)
 	SetNuiFocus(false, false)
 	inv_ui = false
+	TriggerEvent('hud:hide', false)
 
 	if (data.itemUse == -1 or data.itemUse == 8) then
 		return
