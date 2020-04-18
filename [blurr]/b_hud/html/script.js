@@ -21,6 +21,9 @@ window.addEventListener('message', (event) => {
 	if (event.data.action == 'hideHud') {
 		hideHud = event.data.hide;
 		UpdateHud()
+	} else if (event.data.action == 'updatehunger') {
+		document.getElementById('hungerperc').innerHTML = event.data.hunger + "%";
+		document.getElementById('thirstperc').innerHTML = event.data.thirst + "%";
 	} else if (event.data.action == 'updateTime') {
 		document.getElementById('timeText').innerHTML = event.data.time;
 	} else if (event.data.action == 'updateStats') {

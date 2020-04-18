@@ -21,6 +21,7 @@ Citizen.CreateThread(function()
 					TriggerServerEvent('craft:update')
   					SetCursorLocation(0.5,0.1)
   					craft_ui = true
+  					TriggerEvent('hud:hide', true)
   				end
 			end
 		end
@@ -32,8 +33,16 @@ end)
 RegisterNUICallback('openCrafting', function()
 	SetNuiFocus(false, false)
 	inv_ui = false
+	TriggerEvent('hud:hide', false)
 
-	-- IMPLEMENT
+	if (canOpenCrafting) then
+		if (IsDisabledControlJustPressed(1, 51)) then
+			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
+  			SetCursorLocation(0.5,0.1)
+  			craft_ui = true
+  			TriggerEvent('hud:hide', true)
+		end
+	end
 end)
 
 RegisterNetEvent('craft:open')
@@ -50,10 +59,12 @@ AddEventHandler('craft:open', function(inventory, weight, count)
     	location = location,
   	})
 
+	TriggerEvent('hud:hide', true)
   	SetNuiFocus(true, true)
 end)
 
 RegisterNUICallback('closeCrafting', function()
 	SetNuiFocus(false, false)
 	craft_ui = false
+	TriggerEvent('hud:hide', false)
 end)
