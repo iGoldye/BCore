@@ -19,8 +19,8 @@ AddEventHandler('inv:updateAmmo', function(weap, ammo)
 				local inv = user.GetItemInventory()
 
 				for i,v in pairs(inv) do
-					if (v.model == weap) then
-						user.SetItemCount(v.id, ammo)
+					if (v.id == weap) then
+						user.SetItemCount(weap, ammo)
 					end
 				end
 			end

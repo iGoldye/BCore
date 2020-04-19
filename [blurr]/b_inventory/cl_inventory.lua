@@ -1,3 +1,5 @@
+local equippedWeap = 0
+
 Citizen.CreateThread(function()
 	while true do
 		DisableControlAction(1, 12, true)
@@ -31,9 +33,9 @@ Citizen.CreateThread(function()
 		if (IsDisabledControlJustPressed(1, 37) or IsDisabledControlJustPressed(1, 183)) then
 			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
 				if (IsPedArmed(GetPlayerPed(-1), 7)) then
-					local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), GetCurrentPedWeapon(GetPlayerPed(-1), true))
-					TriggerServerEvent('inv:updateAmmo', GetCurrentPedWeapon(GetPlayerPed(-1), true), ammo)
-					print("updating ammo")
+					local _,weap = GetCurrentPedWeapon(GetPlayerPed(-1), true)
+					local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), weap)
+					TriggerServerEvent('inv:updateAmmo', equippedWeap, ammo)
 				end
 
 				TriggerServerEvent('inv:update')
@@ -80,7 +82,9 @@ RegisterNUICallback('onUseItem', function(data)
 	end
 
 	if (data.itemUse == 0) then
+		RemoveAllPedWeapons(GetPlayerPed(-1), true)
 		SetCurrentPedWeapon(GetPlayerPed(-1), GetHashKey("WEAPON_UNARMED"), false)
+		equippedWeap = 0
 	elseif (data.itemUse == 1) then
 		DrinkItem(data.itemId)
 	elseif (data.itemUse == 2) then
@@ -90,10 +94,12 @@ RegisterNUICallback('onUseItem', function(data)
 	elseif (data.itemUse == 4) then
 		TriggerEvent('med:useItem', data)
 	elseif (data.itemUse == 5 or data.itemUse == 6 or data.itemUse == 7) then
+		RemoveAllPedWeapons(GetPlayerPed(-1), true)
 		for i,v in pairs(inv) do
 			if (v.id == data.itemId) then
 				local weapon = GetHashKey(v.model)
         		GiveWeaponToPed(GetPlayerPed(-1), weapon, v.count, 0, true)
+        		equippedWeap = v.id
 			end
 		end
 	end
@@ -203,9 +209,9 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1000)
 		if (IsPedArmed(GetPlayerPed(-1), 7)) then
-			local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), GetCurrentPedWeapon(GetPlayerPed(-1), true))
-			TriggerServerEvent('inv:updateAmmo', GetWeapontypeModel(GetCurrentPedWeapon(GetPlayerPed(-1), true)), ammo)
-			print("updating ammo")
+			local _,weap = GetCurrentPedWeapon(GetPlayerPed(-1), true)
+			local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), weap)
+			TriggerServerEvent('inv:updateAmmo', equippedWeap, ammo)
 		end
 	end
 end)
