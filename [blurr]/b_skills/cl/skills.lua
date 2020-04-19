@@ -2,7 +2,7 @@ local levelCount = 10
 local expPerLevel = 200
 local expDiffPerLevel = 0.3
 
-local skills = {
+skills = {
 	{skill="butchering", lvl=0, exp=0},
 	{skill="cooking", lvl=0, exp=0},
 	{skill="crafting", lvl=0, exp=0},
@@ -35,7 +35,8 @@ Citizen.CreateThread(function()
 
 		-- Level shooting
 		if (IsPedShooting(GetPlayerPed(-1))) then
-			skills[5].exp = skills[5].exp + 2.5
+			--skills[5].exp = skills[5].exp + 2.5
+			skills[5].exp = skills[5].exp + 100
 
 			level = 0
 			for j,_ in pairs(levels) do

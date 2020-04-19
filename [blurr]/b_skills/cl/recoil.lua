@@ -53,7 +53,7 @@ local recoils = {
 	[3173288789] = 0.2, -- MINI SMG		
 }
 
-
+local levelMultipliers = {2.25, 2.00, 1.75, 1.50, 1.0, 0.85, 0.60, 0.45, 0.45, 0.45}
 
 Citizen.CreateThread(function()
 	while true do
@@ -61,7 +61,10 @@ Citizen.CreateThread(function()
 		if IsPedShooting(PlayerPedId()) and not IsPedDoingDriveby(PlayerPedId()) then
 			local _,wep = GetCurrentPedWeapon(PlayerPedId())
 			_,cAmmo = GetAmmoInClip(PlayerPedId(), wep)
-			if recoils[wep] and recoils[wep] ~= 0 then
+
+			local recoil = recoils[wep] * levelMultipliers[skills[5].lvl]
+
+			if recoil and recoil ~= 0 then
 				tv = 0
 				repeat 
 					Wait(0)
@@ -70,7 +73,7 @@ Citizen.CreateThread(function()
 						SetGameplayCamRelativePitch(p+0.1, 0.2)
 					end
 					tv = tv+0.1
-				until tv >= (recoils[wep] / 2)
+				until tv >= (recoil / 2)
 			end
 			
 		end
