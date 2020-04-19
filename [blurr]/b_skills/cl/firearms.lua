@@ -53,8 +53,6 @@ local recoils = {
 	[3173288789] = 0.2, -- MINI SMG		
 }
 
-local levelMultipliers = {2.5, 2.25, 2.00, 1.75, 1.50, 1.0, 0.85, 0.60, 0.45, 0.45, 0.45}
-
 -- Weapon control
 Citizen.CreateThread(function()
 	while true do
@@ -65,10 +63,10 @@ Citizen.CreateThread(function()
 
 			local recoil = recoils[wep]
 
-			if (levelMultipliers[skills[5].lvl + 1] ~= nil) then
-				recoil = recoil * levelMultipliers[skills[5].lvl + 1]
+			if (recoilMultipliers[skills[5].lvl + 1] ~= nil) then
+				recoil = recoil * recoilMultipliers[skills[5].lvl + 1]
 			else
-				recoil = recoil * levelMultipliers[1]
+				recoil = recoil * recoilMultipliers[1]
 			end
 
 			if recoil and recoil ~= 0 then
@@ -94,7 +92,7 @@ Citizen.CreateThread(function()
 
 		-- Level shooting
 		if (IsPedShooting(GetPlayerPed(-1))) then
-			skills[5].exp = skills[5].exp + 2.5
+			skills[5].exp = skills[5].exp + firearmGain
 		end
 	end
 end)
@@ -106,7 +104,7 @@ Citizen.CreateThread(function()
 
 		-- Level shooting
 		if (IsPedShooting(GetPlayerPed(-1)) && skills[5].lvl > 0) then
-			skills[5].exp = skills[5].exp - 0.25
+			skills[5].exp = skills[5].exp - firearmDrain
 		end
 
 		oldLvl = skills[5].lvl
