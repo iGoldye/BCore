@@ -69,11 +69,20 @@ RegisterNUICallback('onUseItem', function(data)
 	TriggerEvent('hud:hide', false)
 
 	if (data.itemUse == -1 or data.itemUse == 8) then
+		TriggerEvent('pNotify:SendNotification', {text = "This item can not be used here.",type = "success",timeout = 2000,layout = "centerLeft",queue = "left"})
 		return
 	end
 
 	if (data.itemUse == 0) then
 		SetCurrentPedWeapon(GetPlayerPed(-1), GetHashKey("WEAPON_UNARMED"), false)
+	elseif (data.itemUse == 1) then
+		DrinkItem(data.itemId)
+	elseif (data.itemUse == 2) then
+		EatItem(data.itemId)
+	elseif (data.itemUse == 3) then
+		UseItem(data.itemId)
+	elseif (data.itemUse == 4) then
+		TriggerEvent('med:useItem', data)
 	elseif (data.itemUse == 5 or data.itemUse == 6 or data.itemUse == 7) then
 		for i,v in pairs(inv) do
 			if (v.id == data.itemId) then
@@ -183,6 +192,62 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 end)
+
+
+function DrinkItem(itemId)
+	TriggerServerEvent('inv:removeItem', itemId, 1)
+
+	-- Animation?
+
+	if (itemId == 1) then -- water
+		TriggerEvent('hud:addHunger', 0, 55)
+	elseif (itemId == 2) then -- apple juice
+		TriggerEvent('hud:addHunger', 0, 50)
+	elseif (itemId == 3) then -- cola
+		TriggerEvent('hud:addHunger', 0, 40)
+	elseif (itemId == 4) then -- redbull
+		TriggerEvent('hud:addHunger', 0, 30)
+		TriggerEvent('effects:energetic', 10000)
+	elseif (itemId == 5) then -- coffee
+		TriggerEvent('hud:addHunger', 0, 45)
+	else
+		-- this drink hasnt been set up correctly rip
+		TriggerEvent('hud:addHunger', 0, 40)
+	end
+end
+
+function EatItem(itemId)
+	TriggerServerEvent('inv:removeItem', itemId, 1)
+
+	-- Animation?
+
+	if (itemId == 10) then -- burger
+		TriggerEvent('hud:addHunger', 60, 0)
+	elseif (itemId == 11) then -- hotdog
+		TriggerEvent('hud:addHunger', 55, 0)
+	elseif (itemId == 12) then -- salad
+		TriggerEvent('hud:addHunger', 45, 10)
+	elseif (itemId == 13) then -- pineapple
+		TriggerEvent('hud:addHunger', 40, 25)
+	elseif (itemId == 14) then -- banana
+		TriggerEvent('hud:addHunger', 25, 0)
+	elseif (itemId == 15) then -- raw meat
+		TriggerEvent('hud:addHunger', -25, -25)
+		TriggerEvent('effects:sick', 10000)
+	elseif (itemId == 16) then -- cooked meat
+		TriggerEvent('hud:addHunger', 65, 10)
+	else
+		-- this food hasnt been set up correctly rip
+		TriggerEvent('hud:addHunger', 40, 0)
+	end
+end
+
+function UseItem(itemId)
+	TriggerServerEvent('inv:removeItem', itemId, 1)
+
+	-- Todo
+end
+
 
 function DrawText3D(text, x, y, z, r, g, b)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)

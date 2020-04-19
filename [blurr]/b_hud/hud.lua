@@ -31,3 +31,15 @@ AddEventHandler('hud:updateHunger', function(hunger, thirst)
       thirst = thirst,
     })
 end)
+
+RegisterNetEvent('hud:addHunger')
+AddEventHandler('hud:addHunger', function(hunger, thirst)
+  hungerPercent = hunger
+  thirstPercent = thirst
+
+  SendNUIMessage({
+      action = 'updatehunger',
+      hunder = hunger,
+      thirst = thirst,
+    })
+end)
