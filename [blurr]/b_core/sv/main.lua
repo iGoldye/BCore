@@ -6,6 +6,7 @@ AddEventHandler("b:beginPlay",function()
 		if (user ~= nil) then
 			TriggerEvent('spawns:onSpawn', source) -- Update all vehicles for client on join
 			TriggerEvent('events:onSpawn', source) -- Update all events for client on join
+			TriggerEvent('skills:onSpawn', source)
 			TriggerClientEvent('hud:updateHunger', source, 100, 100)
 		end
 	end)

@@ -27,6 +27,8 @@ items = {
 	{n="Salad", id=12, use=2, weight=1, image="img/items/salad.png", model=nil, prop="ng_proc_food_bag02a", count=0},
 	{n="Pineapple", id=13, use=2, weight=1, image="img/items/pineapple.png", model=nil, prop="prop_pineapple", count=0},
 	{n="Banana", id=14, use=2, weight=1, image="img/items/banana.png", model=nil, prop="ng_proc_food_nana1a", count=0},
+	{n="Pound of Raw Meat", id=15, weight=1, image="img/items/rawmeat.png", model=nil, prop=nil, count=0},
+	{n="Cooked Meat", id=16, weight=1, image="img/items/cookedmeat.png", model=nil, prop=nil, count=0},
 
 	{n="Joint", id=20, use=3, weight=1, image="img/items/joint.png", model=nil, prop="p_amb_joint_01", count=0},
 	{n="Silencer", id=21, use=3, weight=1, image="img/items/suppressor.png", model=nil, prop="w_at_ar_supp", count=0},
@@ -140,10 +142,48 @@ function CreateUser(source, data)
 	user.SetCharacterName = function(newName)
 		if (name) then
 			self.characters[self.selectedCharacter]["info"].name = newName
+			self.info.isChanged = true
 			return true
 		else
 			return false
 		end
+	end
+
+	user.SetHunger = function(hunger)
+		if (hunger ~= nil) then
+			self.characters[self.selectedCharacter]["stats"].hunger = hunger
+			self.info.isChanged = true
+			return true
+		else
+			return false
+		end
+	end
+	user.GetHunger = function()
+		return self.characters[self.selectedCharacter]["stats"].hunger
+	end
+	user.SetThirst = function(thirst)
+		if (thirst ~= nil) then
+			self.characters[self.selectedCharacter]["stats"].thirst = thirst
+			self.info.isChanged = true
+			return true
+		else
+			return false
+		end
+	end
+	user.GetThirst = function()
+		return self.characters[self.selectedCharacter]["stats"].thirst
+	end
+	user.SetHealth = function(health)
+		if (health ~= nil) then
+			self.characters[self.selectedCharacter]["stats"].health = health
+			self.info.isChanged = true
+			return true
+		else
+			return false
+		end
+	end
+	user.GetHealth = function()
+		return self.characters[self.selectedCharacter]["stats"].health
 	end
 
 	user.GetMoney = function()
@@ -176,6 +216,18 @@ function CreateUser(source, data)
 			self.info.isChanged = true
 			return true
 		else
+			return false
+		end
+	end
+
+	user.GetSkills = function()
+		return self.characters[self.selectedCharacter]["skills"]
+	end
+	user.SetSkills = function(skills)
+		if (skills ~= nil) then
+			self.characters[self.selectedCharacter]["skills"] = skills
+			return true
+		else 
 			return false
 		end
 	end

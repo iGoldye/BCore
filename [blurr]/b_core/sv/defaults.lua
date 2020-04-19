@@ -14,8 +14,13 @@ DEFAULT_USER = {
 DEFAULT_CHARACTER = {
 	["info"] = {
 		name = "New User",
-		dob = {d=20, m=3, y=1998},
+		age = 18,
 		gender = "male",
+	},
+	["stats"] = {
+		health = 200,
+		hunger = 100,
+		thirst = 100,
 	},
 	["money"] = 250, 
 	["inventory"] = {
@@ -24,6 +29,16 @@ DEFAULT_CHARACTER = {
 		air = {},
 		realestate = {},
 	}, 
+	["skills"] = {
+		{skill="butchering", lvl=0, exp=0},
+		{skill="cooking", lvl=0, exp=0},
+		{skill="crafting", lvl=0, exp=0},
+		{skill="farming", lvl=0, exp=0},
+		{skill="firearms", lvl=0, exp=0},
+		{skill="fishing", lvl=0, exp=0},
+		{skill="looting", lvl=0, exp=0},
+		{skill="repair", lvl=0, exp=0},
+	},
 	["coords"] = {
 		x = 1455.667,
 		y = 6344.834,

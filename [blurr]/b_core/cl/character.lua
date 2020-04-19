@@ -70,7 +70,7 @@ end)
 RegisterNetEvent('b:createCharacterUi')
 AddEventHandler('b:createCharacterUi', function(data)
     local name = "Place Holder"
-    local dob = {d=20, m=3, y=1998}
+    local dob = 18
     local gender = "male"
 
     TriggerServerEvent('b:createCharacter', name, dob, gender)
