@@ -103,7 +103,7 @@ Citizen.CreateThread(function()
 		Citizen.Wait(15000)
 
 		-- Level shooting
-		if (IsPedShooting(GetPlayerPed(-1)) && skills[5].lvl > 0) then
+		if (IsPedShooting(GetPlayerPed(-1)) and skills[5].lvl > 0) then
 			skills[5].exp = skills[5].exp - firearmDrain
 		end
 

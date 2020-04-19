@@ -38,6 +38,7 @@ DEFAULT_CHARACTER = {
 		{skill="fishing", lvl=0, exp=0},
 		{skill="looting", lvl=0, exp=0},
 		{skill="repair", lvl=0, exp=0},
+		{skill="running", lvl=0, exp=0},
 	},
 	["coords"] = {
 		x = 1455.667,

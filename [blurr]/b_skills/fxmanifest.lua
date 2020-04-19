@@ -2,7 +2,9 @@ description 'Blurr Core Skils'
 
 client_scripts {
 	'cl/skills.lua',
-	'cl/firearms.lua'
+	'cl/config.lua',
+	'cl/firearms.lua',
+	'cl/stamina.lua'
 }
 
 server_scripts {
