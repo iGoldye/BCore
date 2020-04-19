@@ -30,6 +30,12 @@ Citizen.CreateThread(function()
 
 		if (IsDisabledControlJustPressed(1, 37) or IsDisabledControlJustPressed(1, 183)) then
 			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
+				if (IsPedArmed(GetPlayerPed(-1), 7)) then
+					local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), GetCurrentPedWeapon(GetPlayerPed(-1), true))
+					TriggerServerEvent('inv:updateAmmo', GetCurrentPedWeapon(GetPlayerPed(-1), true), ammo)
+					print("updating ammo")
+				end
+
 				TriggerServerEvent('inv:update')
   				SetCursorLocation(0.5,0.1)
   				inv_ui = true
@@ -190,6 +196,17 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(0)
+	end
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		if (IsPedArmed(GetPlayerPed(-1), 7)) then
+			local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), GetCurrentPedWeapon(GetPlayerPed(-1), true))
+			TriggerServerEvent('inv:updateAmmo', GetWeapontypeModel(GetCurrentPedWeapon(GetPlayerPed(-1), true)), ammo)
+			print("updating ammo")
+		end
 	end
 end)
 
