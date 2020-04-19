@@ -2,7 +2,7 @@ description 'Blurr Core Skils'
 
 client_scripts {
 	'cl/skills.lua',
-	'cl/recoil.lua'
+	'cl/firearms.lua'
 }
 
 server_scripts {

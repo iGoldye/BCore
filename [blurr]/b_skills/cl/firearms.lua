@@ -53,8 +53,9 @@ local recoils = {
 	[3173288789] = 0.2, -- MINI SMG		
 }
 
-local levelMultipliers = {2.25, 2.00, 1.75, 1.50, 1.0, 0.85, 0.60, 0.45, 0.45, 0.45}
+local levelMultipliers = {2.5, 2.25, 2.00, 1.75, 1.50, 1.0, 0.85, 0.60, 0.45, 0.45, 0.45}
 
+-- Weapon control
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -62,7 +63,13 @@ Citizen.CreateThread(function()
 			local _,wep = GetCurrentPedWeapon(PlayerPedId())
 			_,cAmmo = GetAmmoInClip(PlayerPedId(), wep)
 
-			local recoil = recoils[wep] * levelMultipliers[skills[5].lvl]
+			local recoil = recoils[wep]
+
+			if (levelMultipliers[skills[5].lvl + 1] ~= nil) then
+				recoil = recoil * levelMultipliers[skills[5].lvl + 1]
+			else
+				recoil = recoil * levelMultipliers[1]
+			end
 
 			if recoil and recoil ~= 0 then
 				tv = 0
@@ -77,5 +84,44 @@ Citizen.CreateThread(function()
 			end
 			
 		end
+	end
+end)
+
+-- Leveling up
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1)
+
+		-- Level shooting
+		if (IsPedShooting(GetPlayerPed(-1))) then
+			skills[5].exp = skills[5].exp + 2.5
+		end
+	end
+end)
+
+-- Leveling down
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(15000)
+
+		-- Level shooting
+		if (IsPedShooting(GetPlayerPed(-1)) && skills[5].lvl > 0) then
+			skills[5].exp = skills[5].exp - 0.25
+		end
+
+		oldLvl = skills[5].lvl
+		level = 0
+		for j,_ in pairs(levels) do
+			if (skills[5].exp > levels[j]) then 
+				level = j
+			end
+		end
+		skills[5].lvl = level
+		if (oldLvl ~= level) then 
+			TriggerEvent('pNotify:SendNotification', {text = "Firearms - Level "..level,type = "success",timeout = 2000,layout = "centerLeft",queue = "left"})
+		end
+
+		-- Update server
+		TriggerServerEvent('skills:update', skills)
 	end
 end)
