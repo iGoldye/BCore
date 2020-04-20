@@ -11,6 +11,23 @@ AddEventHandler('inv:update', function()
 	end)
 end)
 
+RegisterServerEvent('inv:updateAmmo')
+AddEventHandler('inv:updateAmmo', function(weap, ammo)
+	if (weap ~= nil) then
+		TriggerEvent('b:getPlayer', tonumber(source), function(user)
+			if (user ~= nil) then
+				local inv = user.GetItemInventory()
+
+				for i,v in pairs(inv) do
+					if (v.id == weap) then
+						user.SetItemCount(weap, ammo)
+					end
+				end
+			end
+		end)
+	end
+end)
+
 RegisterServerEvent('inv:giveItemById')
 AddEventHandler('inv:giveItemById', function(player, itemId, qty)
 	TriggerEvent('b:getPlayer', tonumber(player), function(user)

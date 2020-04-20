@@ -38,9 +38,10 @@ RegisterNUICallback('openCrafting', function()
 	if (canOpenCrafting) then
 		if (IsDisabledControlJustPressed(1, 51)) then
 			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
-  			SetCursorLocation(0.5,0.1)
-  			craft_ui = true
-  			TriggerEvent('hud:hide', true)
+  				SetCursorLocation(0.5,0.1)
+  				craft_ui = true
+  				TriggerEvent('hud:hide', true)
+  			end
 		end
 	end
 end)

@@ -350,6 +350,19 @@ function CreateUser(source, data)
 
 		return inventoryCount
 	end
+	user.SetItemCount = function(itemId, amount)
+		for i,v in pairs(self.characters[self.selectedCharacter]["inventory"].player) do
+			if (v.id == itemId) then
+				v.count = amount
+				self.info.isChanged = true
+				return true
+			end
+		end
+		return false
+	end
+	user.AddItemCount = function(itemId, amount)
+		-- TODO
+	end
 	user.GiveItem = function(itemId, itemQty)
 		local inventoryWeight = 0
 		for i,v in pairs(self.characters[self.selectedCharacter]["inventory"].player) do
