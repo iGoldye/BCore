@@ -16,7 +16,7 @@ end)
 
 RegisterNetEvent('trade:fail')
 AddEventHandler('trade:fail', function()
-	print("Oopsie, I made a poopsie.")
+	CloseTrading()
 end)
 
 RegisterNetEvent('trade:open')
@@ -44,10 +44,7 @@ end)
 
 RegisterNUICallback('updateTrading', function(data)
 	TriggerServerEvent('trade:update', otherId, data.cancel, data.accept, data.offeredItem)
-
-	SetNuiFocus(false, false)
-	trade_ui = false
-	ResetTradeVars()
+	CloseTrading()
 end)
 
 RegisterNetEvent('trade:update')
@@ -69,17 +66,22 @@ AddEventHandler('trade:update', function(cancel, accept, itemToAdd)
 end)
 
 RegisterNUICallback('closeTrading', function()
-	SetNuiFocus(false, false)
-	trade_ui = false
-	TriggerEvent('hud:hide', false)
-	ResetTradeVars()
+	CloseTrading()
 end)
 
-RegisterNUICallback('completeTrading', function(data)
+function CloseTrading()
 	SetNuiFocus(false, false)
 	trade_ui = false
 	TriggerEvent('hud:hide', false)
 	ResetTradeVars()
+
+	SendNUIMessage({
+    	action = 'close_all',
+  	})
+end
+
+RegisterNUICallback('completeTrading', function(data)
+	CloseTrading()
 
 	TriggerServerEvent('trade:completeTrade', data.outgoing, data.ingoing)
 end)

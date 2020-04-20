@@ -96,6 +96,16 @@ window.addEventListener('message', (event) => {
       })
       SetupInventory()
     }
+  } else if (event.data.action == 'close_all') {
+    $('.inv_overlay').hide();
+    inventory_open = false;
+    $('.craft_overlay').hide();
+    craft_open = false;
+    $('.trade_overlay').hide();
+    trade_open = false;
+    $('.vehicle_overlay').hide();
+    vehicle_open = false;
+    
   } else if (event.data.action == 'open_crafting') {
     inventory = event.data.items
     if (inventory != undefined) {
