@@ -1,7 +1,9 @@
 -- Base configuration
-levelCount = 10			-- What is max level?
-expPerLevel = 200		-- How much experience per level
-expDiffPerLevel = 0.3	-- Multiplier per level for less uniform levelling
+levelCount = 10				-- What is max level?
+expPerLevel = 200			-- How much experience per level
+expDiffPerLevel = 0.3		-- Multiplier per level for less uniform levelling
+maxWeight = 200				-- Max weight in inventory (Needs to be updated if weight is changed in BCore)
+weightBeforeAffected = 30	-- Weight of items before you start losing speed
 
 -- Stat specific configs
 firearmGain = 1.5			-- How much exp is gained per shot
