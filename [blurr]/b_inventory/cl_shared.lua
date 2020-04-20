@@ -35,3 +35,17 @@ function DrawText3D(x, y, z, r, g, b, text)
         DrawText(_x,_y)
     end
 end
+
+-- Close all UIs if they deaded
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(1000)
+        if (GetEntityHealth(GetPlayerPed(-1)) <= 0) then
+            if (inv_ui) then CloseInventory()
+            elseif (craft_ui) then CloseCrafting()
+            elseif (trade_ui) then TriggerEvent('trade:update', true, false, nil)
+            elseif (vehicle_ui) then CloseVehicleInventory()
+            end
+        end
+    end
+end)

@@ -79,3 +79,21 @@ function FreezePlayer(id, freeze)
         end
     end
 end
+
+RegisterNetEvent('med:useItem')
+AddEventHandler('med:useItem', function(itemData)
+    local itemId = itemData.itemId
+    local currentHealth = GetEntityHealth(GetPlayerPed(-1))
+
+    if (itemId == 30) then -- Medkit
+        if (currentHealth < 200) then
+            local newHealth = currentHealth + 100
+            if (newHealth > 200) then newHealth = 200 end
+
+            -- Animation
+
+            SetEntityHealth(GetPlayerPed(-1), newHealth)
+            TriggerServerEvent('inv:removeItem', itemId, 1)
+        end
+    end
+end)

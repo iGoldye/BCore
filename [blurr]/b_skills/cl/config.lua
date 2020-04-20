@@ -6,9 +6,9 @@ maxWeight = 200				-- Max weight in inventory (Needs to be updated if weight is 
 weightBeforeAffected = 30	-- Weight of items before you start losing speed
 
 -- Stat specific configs
-firearmGain = 1.5			-- How much exp is gained per shot
-firearmDrain = 0.05		-- How much exp is lost every 15 seconds
-recoilMultipliers = {	-- How much recoil is multiplied per level (0 - 10)
+firearmGain = 3.0			-- How much exp is gained per shot
+firearmDrain = 0.05			-- How much exp is lost every 15 seconds
+recoilMultipliers = {		-- How much recoil is multiplied per level (0 - 10)
 	2.5, 
 	2.25, 
 	2.00, 
@@ -22,9 +22,9 @@ recoilMultipliers = {	-- How much recoil is multiplied per level (0 - 10)
 	0.45
 }
 
-staminaGain = 25		-- How much exp is gained every 15 seconds if ran
-staminaDrain = 0.05		-- How much exp is lost every 15 seconds
-staminaMultipliers = {	-- How much stamina regen is multiplied per level (0 - 10)
+staminaGain = 25			-- How much exp is gained every 15 seconds if ran
+staminaDrain = 0.05			-- How much exp is lost every 15 seconds
+staminaMultipliers = {		-- How much stamina regen is multiplied per level (0 - 10)
 	1.0, 
 	1.1, 
 	1.3, 

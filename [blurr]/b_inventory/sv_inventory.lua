@@ -38,16 +38,12 @@ AddEventHandler('inv:giveItemById', function(player, itemId, qty)
 			if (itemId >= 40 and itemId < 50) then
 				if (user.HasItem(itemId) < 1) then
 					if (user.GiveItem(itemId, 1)) then
-						print("Item given.")
 					else
-						print("Item not given...")
 					end
 				end
 			else
 				if (user.GiveItem(itemId, qty)) then
-					print("Item given.")
 				else
-					print("Item not given...")
 				end
 			end
 		end
@@ -60,7 +56,6 @@ AddEventHandler('inv:removeItem', function(itemId, qty)
 		if (user ~= nil) then
 			if (user.HasItem(itemId) >= qty) then
 				if (user.RemoveItem(itemId, qty)) then
-					print("Item removed!")
 				end
 			end
 		end

@@ -61,7 +61,10 @@ Citizen.CreateThread(function()
 			local _,wep = GetCurrentPedWeapon(PlayerPedId())
 			_,cAmmo = GetAmmoInClip(PlayerPedId(), wep)
 
-			local recoil = recoils[wep]
+			local recoil = 0.5
+			if (recoils[wep]) then
+				recoil = recoils[wep]
+			end
 
 			if (recoilMultipliers[skills[5].lvl + 1] ~= nil) then
 				recoil = recoil * recoilMultipliers[skills[5].lvl + 1]
@@ -69,7 +72,7 @@ Citizen.CreateThread(function()
 				recoil = recoil * recoilMultipliers[1]
 			end
 
-			if recoil and recoil ~= 0 then
+			if recoil ~= 0 then
 				tv = 0
 				repeat 
 					Wait(0)

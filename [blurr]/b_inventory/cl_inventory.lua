@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
 		DisableControlAction(1, 349, true)
 
 		if (IsDisabledControlJustPressed(1, 37) or IsDisabledControlJustPressed(1, 183)) then
-			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false) then
+			if (inv_ui == false and trade_ui == false and craft_ui == false and vehicle_ui == false and GetEntityHealth(GetPlayerPed(-1)) > 0) then
 				if (IsPedArmed(GetPlayerPed(-1), 7)) then
 					local _,weap = GetCurrentPedWeapon(GetPlayerPed(-1), true)
 					local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), weap)
@@ -66,15 +66,11 @@ AddEventHandler('inv:open', function(inventory, weight, count)
 end)
 
 RegisterNUICallback('closeInventory', function()
-	SetNuiFocus(false, false)
-	inv_ui = false
-	TriggerEvent('hud:hide', false)
+	CloseInventory()
 end)
 
 RegisterNUICallback('onUseItem', function(data)
-	SetNuiFocus(false, false)
-	inv_ui = false
-	TriggerEvent('hud:hide', false)
+	CloseInventory()
 
 	if (data.itemUse == -1 or data.itemUse == 8) then
 		TriggerEvent('pNotify:SendNotification', {text = "This item can not be used here.",type = "success",timeout = 2000,layout = "centerLeft",queue = "left"})
@@ -271,6 +267,15 @@ function UseItem(itemId)
 	-- Todo
 end
 
+function CloseInventory()
+	SetNuiFocus(false, false)
+	inv_ui = false
+	TriggerEvent('hud:hide', false)
+
+	SendNUIMessage({
+    	action = 'close_all',
+  	})
+end
 
 function DrawText3D(text, x, y, z, r, g, b)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)
