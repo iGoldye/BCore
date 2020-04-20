@@ -1,3 +1,22 @@
+local maxWeight = 200
+local minSpeed = 0
+local maxSpeed = 0
+
+Citizen.CreateThread(function()
+	while true do
+		print(weight.."lbs - Movement Speed: "..GetEntitySpeed(GetPlayerPed(-1)))
+
+		local speedLossPerPound = (maxSpeed - minSpeed) / maxWeight
+		print("Per pound of weight, "..speedLossPerPound.." movement speed is lost.")
+
+		local speedLoss = weight * speedLossPerPound
+		local myRunSpeed = maxSpeed - speedLoss
+		SetEntityMaxSpeed(GetPlayerPed(-1), myRunSpeed)
+
+		Citizen.Wait(1000)
+	end
+end)
+
 local hasRan = false
 Citizen.CreateThread(function()
 	while true do

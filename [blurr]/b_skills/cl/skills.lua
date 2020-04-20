@@ -1,3 +1,4 @@
+weight = 0
 skills = {
 	{skill="butchering", lvl=0, exp=0},
 	{skill="cooking", lvl=0, exp=0},
@@ -21,6 +22,7 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent('skills:onSpawn')
-AddEventHandler('skills:onSpawn', function(s)
+AddEventHandler('skills:onSpawn', function(s, w)
 	skills = s
+	weight = w
 end)
