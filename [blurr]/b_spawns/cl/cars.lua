@@ -1,6 +1,4 @@
 local spawnDistance = 500
-local maxNearbyCars = 5
-local maxOverallCars = 320
 cars = {}
 keys = {}
 

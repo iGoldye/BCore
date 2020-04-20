@@ -1,5 +1,7 @@
 DEBUG = false
 CAR_DEBUG = false
+maxNearbyCars = 10
+maxOverallCars = 640
 
 spawnableCars = {
 	"Biff",
